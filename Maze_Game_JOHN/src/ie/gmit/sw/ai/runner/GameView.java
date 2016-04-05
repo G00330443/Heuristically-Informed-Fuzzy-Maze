@@ -60,7 +60,7 @@ public class GameView extends JPanel implements ActionListener{
 	}
 
 	public void setCurrentRow(int row) {
-		System.out.println(row);
+	
 		if (row < cellpadding){
 			currentRow = cellpadding;
 		}else if (row > (maze.length - 1) - cellpadding){
@@ -233,23 +233,19 @@ public class GameView extends JPanel implements ActionListener{
 						if(u==4){
 							g2.drawImage(images[imageIndex], x1+size, y1, null);
 							enemy_collision((currentRow - cellpadding + row),(currentCol - cellpadding + col));
-				//			System.out.println("now location==="+maze[(currentRow - cellpadding + row)][(currentCol - cellpadding + col+1)]);
-							
+				//			
 						}else if(u==3){
 							g2.drawImage(images[imageIndex], x1-size, y1, null);
 							enemy_collision((currentRow - cellpadding + row),(currentCol - cellpadding + col));
-							System.out.println("now location==="+maze[(currentRow - cellpadding + row)][(currentCol - cellpadding + col-1)]);
-
+							
 						}else if(u==2){
 							g2.drawImage(images[imageIndex], x1, y1+size, null);
 							enemy_collision((currentRow - cellpadding + row),(currentCol - cellpadding + col));
-							System.out.println("now location==="+maze[(currentRow - cellpadding + row+1)][(currentCol - cellpadding + col)]);
-
 							
 						}else if(u==1){
 							g2.drawImage(images[imageIndex], x1, y1-size, null);
 							enemy_collision((currentRow - cellpadding + row),(currentCol - cellpadding + col));
-							System.out.println("now location==="+maze[(currentRow - cellpadding + row-1)][(currentCol - cellpadding + col)]);
+						
 
 						}
 						nu++;
@@ -272,6 +268,9 @@ public class GameView extends JPanel implements ActionListener{
 			paintDead(g2);
 		}
 		
+		if(new Collision_check().victory_check){
+			paintVictory(g2);
+		}
 	}
 	
 	
@@ -445,4 +444,9 @@ public class GameView extends JPanel implements ActionListener{
 		timer.stop();
 	}
 
+	public void paintVictory(Graphics g) {
+		g.setColor(Color.green);
+		g.drawString("Congrulation , you Win", 200, 400);
+		timer.stop();
+	}
 }

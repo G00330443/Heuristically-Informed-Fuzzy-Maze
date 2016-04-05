@@ -83,6 +83,7 @@ public class runner extends JFrame implements KeyListener{
 	        this.setVisible(true);*/
 	}
 
+	
 	// check blood 
 	public void play(){
 		while(keeprunning){
@@ -194,14 +195,14 @@ public class runner extends JFrame implements KeyListener{
 				
 				bomb.number--;
 				try {
-					System.out.println("Throw a Bomb , and wait 1 sec exposion");
+	//				System.out.println("Throw a Bomb , and wait 1 sec exposion");
 					
 					bomb.sleep(1000);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				System.out.println("boom");
+		//		System.out.println("boom");
 				bomb.exposion(currentRow,currentCol);
 			}
 		}

@@ -7,20 +7,31 @@ import javax.swing.CellEditor;
 import ie.gmit.sw.ai.traverse.traverse_DFS;
 
 public class Maze_Generate {
+	//variables
 	private int col;
-
 	private int row;
 	private static int ROWMAZE=20;
 	private Maze_Node node;
 	private static Type type;
+
+	//used to store DFS search point
 	public static int[][] node_set;
 
+
+	//Used to store wall that ver and hor 
 	private Type[][] wall_VER_set;
 	private Type[][] wall_Hor_set;
+
 	public static int [][] newMaze;
+
+	//check the cell in map is visited or not
 	private boolean [][] unVisited;
+
+	//import Random
 	private static Random character =new Random();
 
+
+	//test maze
 	public static void main(String[] args) {
 		Maze_Generate c=new Maze_Generate();
 		c.Maze(ROWMAZE, ROWMAZE);
@@ -32,25 +43,30 @@ public class Maze_Generate {
 		this.row=row;
 		this.col=col;
 
+		//set scale of int[][]  
 		this.node_set=new int[2*this.row+1][2*this.col+1];
 		this.unVisited=new boolean[this.row][this.col];
-
+		//set scale of new Maze
+		newMaze=new int[this.row*2+1][this.col*2+1];
 		wall_Hor_set=new Type[row+1][col];
 		wall_VER_set=new Type[row][col+1];
 
-
+		/*
+		 * reset all data in this game
+		 * and start generate function 
+		 * then set entry and exit  (only one) 
+		 * 
+		 * And store the shotpath point in node_set
+		 */
 		reset();
 		generate(0,0);
 		setEntry_Exit();
 
-		newMaze=new int[this.row*2+1][this.col*2+1];
+
 		generateMaze();
 
 		getShortPath();
 
-
-		//	newMaze=maze_check(newMaze);
-		//	System.out.println(newMaze[0][0]+"+++++++++=");
 		return  newMaze;
 	}
 
@@ -314,7 +330,7 @@ public class Maze_Generate {
 		}
 	} 
 
-	
+
 	//reset all data 
 	public void reset(){
 		for (int i = 0; i < this.row; i++)
@@ -337,7 +353,7 @@ public class Maze_Generate {
 				wall_VER_set[i][j] = type.Wall;
 	}
 
-	
+
 	// check next step type 
 	public String type_check(Type c){
 		if(c==type.Empty){

@@ -17,7 +17,8 @@ public class Collision_check {
 	private int currentRow;
 	private int currentCol;
 	private int[][] mazeData;
-
+	public static boolean victory_check=false;
+	
 	fuzzyLogic fuzzylogic=new fuzzyLogic();
 	GameView view=new GameView();
 	Random random=new Random();
@@ -63,6 +64,7 @@ public class Collision_check {
 		
 		if((c==40)&&(r==39)){
 			flag=victorycheck();
+			victory_check=true;
 			view.timer.stop();
 		}
 
