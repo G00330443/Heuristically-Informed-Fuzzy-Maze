@@ -214,7 +214,7 @@ public class runner extends JFrame implements KeyListener{
 	}
 
 	
-	//check next step is valid or not 
+	//check next step is valid or no 
 	private boolean isValidMove(int r, int c){
 		Collision_check cc=new Collision_check( mazeData,  r,  c , currentRow,currentCol);
 

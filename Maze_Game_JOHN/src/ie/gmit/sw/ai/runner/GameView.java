@@ -143,6 +143,11 @@ public class GameView extends JPanel implements ActionListener{
 									g2.setColor(Color.yellow);
 									g2.fillRect(x2, y2,15, 15);
 								}
+								
+								if(maze[i][j]==19){
+									g2.setColor(Color.red);
+									g2.fillRect(x2, y2,15, 15);
+								}
 							}
 						}
 					}
@@ -421,6 +426,7 @@ public class GameView extends JPanel implements ActionListener{
 		images[17] = ImageIO.read(new java.io.File("resources/attack6.jpg"));
 		images[18] = ImageIO.read(new java.io.File("resources/attack7.jpg"));
 		images[19] = ImageIO.read(new java.io.File("resources/health.png"));
+	//	images[20] = ImageIO.read(new java.io.File("resources/health.png"));
 
 	}
 

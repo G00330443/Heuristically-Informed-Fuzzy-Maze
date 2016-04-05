@@ -11,56 +11,63 @@ public class traverse_DFS {
 	private static int row=mg.getROWMAZE();
 	private static int col=mg.getROWMAZE();
 
-	
-	public static  boolean traverse(int i1, int j1, int i2, int j2) {
-		boolean result = false;
 
-		if (i1 == 1 && j1 == 0)// set the start point 
-			mg.node_set[i1][j1]=1;
+	public static  boolean traverse(int row1, int col1, int nextrow, int nextcol) {
+		boolean flag = false;
 
-		if (valid(i1, j1, i2, j2)) {
-			mg.node_set[i2][j2]=-1;// 先设定为notMain表示不在主路径上
+		if (row1 == 1 && col1 == 0)// set the start point 
+			mg.node_set[row1][col1]=1;
 
-			if (i2 == 2 * row - 1 && j2 == 2 * col)
-				result = true; // 到达终点
+		if (valid(row1, col1, nextrow, nextcol)) {
+			mg.node_set[nextrow][nextcol]=-1;// reset all cell in the path equal -1
+
+			if (nextrow == 2 * row - 1 && nextcol == 2 * col){
+				flag = true; 
+			}
 			else {
-				result = traverse(i2, j2, i2 + 1, j2); // down
-				if (!result)
-					result = traverse(i2, j2, i2, j2 + 1); // right
-				if (!result)
-					result = traverse(i2, j2, i2 - 1, j2); // up
-				if (!result)
-					result = traverse(i2, j2, i2, j2 - 1); // left
+				
+				// check top bot left and right is or not  in the short path
+				
+				flag = traverse(nextrow, nextcol, nextrow + 1, nextcol); 
+				if (!flag)
+					flag = traverse(nextrow, nextcol, nextrow, nextcol + 1); 
+				if (!flag)
+					flag = traverse(nextrow, nextcol, nextrow - 1, nextcol); 
+				if (!flag)
+					flag = traverse(nextrow, nextcol, nextrow, nextcol - 1); 
 			}
 
-			if (result) // 若done为true说明这个方格在主路径上
-				mg.node_set[i2][j2]=1;
+			if (flag) // if flag==true  meaning this cell in short path
+				mg.node_set[nextrow][nextcol]=1;
 		} else {
-		
+
 		}
 
-		return result;
+		return flag;
 	}
 
-	private static boolean valid(int i1, int j1, int i2, int j2) {
-		boolean result = false;
 
-		if (i2 >= 0 && i2 < 2 * row + 1 && j2 >= 0
-				&& j2 < 2 * col + 1)
-			if (Maze_Generate.node_set[i2][j2] == 0) {// 保证没有越界而且目标方格未踏足过
-				if (i1 == i2 - 1 && mg.newMaze[i1][j1] == mg.newMaze[i2][j2]
-						&& mg.newMaze[i2][j2] == 0)// 从上往下
-					result = true;
-				else if (i1 == i2 + 1 && mg.newMaze[i1][j1] == mg.newMaze[i2][j2]
-						&& mg.newMaze[i2][j2] == 0)// 从下往上
-					result = true;
-				else if (j1 == j2 - 1 && mg.newMaze[i1][j1] == mg.newMaze[i2][j2]
-						&& mg.newMaze[i2][j2] == 0)// 从左往右
-					result = true;
-				else if (j1 == j2 + 1 && mg.newMaze[i1][j1] == mg.newMaze[i2][j2]
-						&& mg.newMaze[i2][j2] == 0)// 从右往左
-					result = true;
+	// below function is used to check next step is type.road or other characters 
+	
+	private static boolean valid(int row1, int col1, int nextrow, int nextcol) {
+		boolean flag = false;
+
+		if (nextrow >= 0 && nextrow < 2 * row + 1 && nextcol >= 0
+				&& nextcol < 2 * col + 1)
+			if (Maze_Generate.node_set[nextrow][nextcol] == 0) {
+				if (row1 == nextrow - 1 && mg.newMaze[nextrow][nextcol] == 0){// top
+					flag = true;
+				}
+				else if (row1 == nextrow + 1 && mg.newMaze[nextrow][nextcol] == 0){// bot
+					flag = true;
+				}
+				else if (col1 == nextcol - 1 &&mg.newMaze[nextrow][nextcol] == 0){// left
+					flag = true;
+				}
+				else if (col1 == nextcol + 1 && mg.newMaze[nextrow][nextcol] == 0){// right
+					flag = true;
+				}
 			}
-		return result;
+		return flag;
 	}
 }
