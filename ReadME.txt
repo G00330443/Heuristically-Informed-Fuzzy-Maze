@@ -72,7 +72,6 @@ Special character of this game
 
 
 
-
-
+Try to use Node to create maze and other characters at first but meet some problems so give up it. 
  
 
